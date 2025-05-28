@@ -1,0 +1,6 @@
+Flask
+gunicorn
+openai
+requests
+speechrecognition
+pyttsx3
