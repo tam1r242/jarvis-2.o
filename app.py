@@ -1,10 +1,17 @@
 from flask import Flask, render_template, request, jsonify
 import os
 import requests
-
+import json
 app = Flask(__name__)
 
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+
+
+def load_config():
+    with open('config.json') as config_file:
+        return json.load(config_file)
+
+config = load_config()
+GROQ_API_KEY = config.get("GROQ_API_KEY")
 
 @app.route("/")
 def index():
