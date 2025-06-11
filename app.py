@@ -40,6 +40,14 @@ def ask():
     if not user_input:
         return jsonify({"response": "I didn't hear anything."})
 
+    # Check for remember format and store in important memories
+    if user_input.startswith("remember: "):
+        memory_string = user_input[9:].strip('"')
+        for key in memory["important_memories"]:
+            if memory["important_memories"][key] is None:
+                memory["important_memories"][key] = memory_string
+                break
+
     # Store conversation history
     memory["conversation_history"].append({"user": user_input})
 
@@ -57,36 +65,6 @@ def ask():
     
     response_text = ask_groq(prompt)
     memory["conversation_history"][-1]["assistant"] = response_text  # Update the last entry with the assistant's response
-
-    return jsonify({"response": response_text})
-def ask():
-    data = request.get_json()
-    user_input = data.get("message")
-    if not user_input:
-        return jsonify({"response": "I didn't hear anything."})
-
-    # Store conversation history
-    memory["conversation_history"].append(user_input)
-
-    # Construct the prompt with memories
-    memories = " ".join([f"{key}: {value}" for key, value in memory["important_memories"].items() if value])
-    prompt = f"{memories}\nUser: {user_input}\nAssistant:"
-    
-    response_text = ask_groq(prompt)
-    memory["conversation_history"].append(response_text)
-
-    return jsonify({"response": response_text})
-def ask():
-    data = request.get_json()
-    user_input = data.get("message")
-    if not user_input:
-        return jsonify({"response": "I didn't hear anything."})
-
-    # Store conversation history
-    memory["conversation_history"].append(user_input)
-
-    response_text = ask_groq(user_input)
-    memory["conversation_history"].append(response_text)
 
     return jsonify({"response": response_text})
 
@@ -112,7 +90,7 @@ def ask_groq(prompt):
         chat_completion = groq_client.chat.completions.create(
             model="compound-beta",
             messages=[
-                {"role": "system", "content": "You are a helpful voice assistant named Jarvis."},
+                {"role": "system", "content": "You are a helpful voice assistant named Jarvis. Your responses should NEVER include any references to previous conversations or questions, even if they are provided in the context. Focus solely on answering the current question directly. Do not mention or repeat previous exchanges. Do not say things like 'as mentioned before' or 'you asked'. Give only the direct answer to the current question."},
                 {"role": "user", "content": prompt}
             ]
         )
