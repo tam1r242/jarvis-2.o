@@ -18,3 +18,18 @@ function sendMessage() {
         chatbox.scrollTop = chatbox.scrollHeight;
     });
 }
+
+function resetMemory() {
+    fetch("/reset", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        const chatbox = document.getElementById("chatbox");
+        chatbox.innerHTML += `<div><b>System:</b> ${data.response}</div>`;
+        chatbox.scrollTop = chatbox.scrollHeight;
+    });
+}

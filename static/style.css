@@ -34,3 +34,8 @@ button {
     color: #0f0f0f;
     cursor: pointer;
 }
+<div>
+    <input type="text" id="userInput" placeholder="Type your message here...">
+    <button id="sendBtn">Send</button>
+    <button id="resetMemoryBtn">Reset Memory</button>
+</div>
