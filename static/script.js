@@ -33,3 +33,8 @@ function resetMemory() {
         chatbox.scrollTop = chatbox.scrollHeight;
     });
 }
+
+// Reset chat functionality
+document.getElementById('resetButton').addEventListener('click', function() {
+    document.getElementById('chatbox').innerHTML = ''; // Clear the chatbox
+});
