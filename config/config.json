@@ -1,0 +1,28 @@
+{
+    "audio": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "chunk_size": 1024,
+        "record_seconds": 10
+    },
+    "speech": {
+        "wake_phrase": "hi jarvis",
+        "keyword_threshold": 0.5
+    },
+    "whisper": {
+        "model": "tiny",
+        "language": "en"
+    },
+    "tts": {
+        "voice": "en-us-male",
+        "rate": 150,
+        "volume": 0.8
+    },
+    "groq": {
+        "api_key": "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"
+    },
+    "web": {
+        "host": "0.0.0.0",
+        "port": 5000
+    }
+}

@@ -1,7 +1,21 @@
-Flask
-gunicorn
-openai
-requests
-speechrecognition
-pyttsx3
-groq
+# Core dependencies
+groq==0.3.0
+numpy>=1.21.0
+sounddevice>=0.4.6
+soundfile>=0.10.3
+PyAudio>=0.2.13
+
+# Speech processing
+vosk>=0.3.45
+faster-whisper>=0.10.0
+torch>=2.0.0
+torchaudio>=2.0.0
+ctypes-callable>=1.0.0  # For eSpeak-NG integration
+
+# Web interface
+Flask>=2.0.0
+gunicorn>=20.1.0
+
+# Development tools
+requests>=2.25.1  # For downloading models
+tqdm>=4.65.0  # For progress bars
